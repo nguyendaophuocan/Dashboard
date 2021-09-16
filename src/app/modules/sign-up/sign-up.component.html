@@ -1,0 +1,41 @@
+<div class="display-container">
+  <div class="display-container-cell">
+    <div class="auth-block">
+      <h3>Sign up</h3>
+      <div class="formGroup">
+        <input
+          type="text"
+          class="formControl"
+          placeholder="Email address"
+          #email
+          required
+        />
+      </div>
+      <div class="formGroup">
+        <input
+          type="password"
+          class="formControl"
+          placeholder="Password"
+          #password
+          required
+        />
+      </div>
+      <div class="formGroup">
+        <button
+          type="button"
+          class="btn btnPrimary"
+          (click)="authService.signUp(email.value, password.value)"
+        >
+          Sign up
+        </button>
+      </div>
+      <div class="formGroup"><span class="or">Or</span></div>
+      <div class="formGroup">
+        <button type="button" class="btn googleBtn">Sign in with google</button>
+      </div>
+      <div class="redirect-to-login">
+        <span> Have account ? <a routerLink="/login">Sign in</a> </span>
+      </div>
+    </div>
+  </div>
+</div>

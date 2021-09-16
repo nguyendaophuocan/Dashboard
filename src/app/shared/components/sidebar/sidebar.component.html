@@ -1,0 +1,40 @@
+<mat-nav-list>
+  <div class="body">
+    <div class="profile-card">
+      <div class="header">
+        <h2>Username</h2>
+        <span>username@gmail.com</span>
+      </div>
+      <img
+        class="align-self-start img-thumbnail rounded-circle"
+        src="https://www.jea.com/cdn/images/avatar/avatar-alt.svg"
+      />
+    </div>
+    <mat-divider></mat-divider>
+    <h2 matSubheader>Pages</h2>
+    <a
+      mat-list-item
+      routerLinkActive="list-item-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/"
+      >Dashboard</a
+    >
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/users"
+      >Users</a
+    >
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/rooms"
+      >Rooms</a
+    >
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/messages"
+      >Messages</a
+    >
+    <mat-divider></mat-divider>
+    <h2 matSubheader>Others</h2>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/option1">
+      <mat-icon>import_contacts</mat-icon> Option1
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/option2">
+      <mat-icon>contact_phone</mat-icon> Option2
+    </a>
+  </div>
+</mat-nav-list>
