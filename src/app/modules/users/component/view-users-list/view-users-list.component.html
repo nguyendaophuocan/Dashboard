@@ -1,29 +1,108 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="120px">
   <div fxFlex="120">
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          #filter
+          placeholder="Filter"
+          (keyup)="applyFilter($event.target.value)"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          *ngIf="filter.value"
+          (click)="filter.value = ''; applyFilter('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource">
-        <ng-container matColmnDef="id">
+        <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>id</th>
           <td mat-cell *matCellDef="let element">{{ element.id }}</td>
         </ng-container>
-        <ng-container matColmnDef="username">
+        <ng-container matColumnDef="username">
           <th mat-header-cell *matHeaderCellDef>Username</th>
-          <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+          <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.id === editingId">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="username"
+                  [value]="element.username"
+                  [(ngModel)]="element.username"
+                />
+              </mat-form-field>
+            </div>
+            <div *ngIf="element.id !== editingId">{{ element.username }}</div>
+          </td>
         </ng-container>
-        <ng-container matColmnDef="password">
+        <ng-container matColumnDef="password">
           <th mat-header-cell *matHeaderCellDef>Password</th>
-          <td mat-cell *matCellDef="let element">{{ element.password }}</td>
+          <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.id === editingId">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="password"
+                  [value]="element.password"
+                  [(ngModel)]="element.password"
+                />
+              </mat-form-field>
+            </div>
+            <div *ngIf="element.id !== editingId">{{ element.password }}</div>
+          </td>
         </ng-container>
-        <ng-container matColmnDef="date_created">
+        <ng-container matColumnDef="date_created">
           <th mat-header-cell *matHeaderCellDef>Date Created</th>
-          <td mat-cell *matCellDef="let element">{{ element.timestamp }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{
+              element.timestamp
+                ? element.timestamp.toDate().toUTCString()
+                : "No date"
+            }}
+          </td>
         </ng-container>
-        <ng-container matColmnDef="action">
+        <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="!editing"
+              mat-mini-fab
+              color="primary"
+              (click)="onEditUser(element.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              *ngIf="editing"
+              mat-mini-fab
+              color="primary"
+              (click)="onSaveUser(element)"
+            >
+              <mat-icon>check</mat-icon>
+            </button>
+            <button *ngIf="editing" mat-mini-fab (click)="onCancel()">
+              <mat-icon>cancel</mat-icon>
+            </button>
+            <button
+              *ngIf="!editing"
+              mat-mini-fab
+              (click)="onDeleteUser(element.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
     </div>
   </div>
 </div>

@@ -31,6 +31,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CardComponent } from './widget/card/card.component';
+import { ColumnComponent } from './widget/column/column.component';
+import { PieComponent } from './widget/pie/pie.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SidebarComponent,
     FooterComponent,
     DefaultComponent,
+    CardComponent,
+    ColumnComponent,
+    PieComponent,
   ],
 
   imports: [
@@ -54,6 +61,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     RouterModule,
     MatCardModule,
     MatPaginatorModule,
+    NgApexchartsModule,
   ],
 
   exports: [
@@ -64,6 +72,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FooterComponent,
 
     DefaultComponent,
+    CardComponent,
+    ColumnComponent,
   ],
 })
 export class SharedModule {}

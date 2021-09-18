@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -17,6 +17,9 @@ export class ViewUsersListComponent implements OnInit {
     'date_created',
     'action',
   ];
+  editing: boolean = false;
+  editingId: string;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(public userService: UsersService) {}
 
   ngOnInit(): void {
@@ -29,7 +32,30 @@ export class ViewUsersListComponent implements OnInit {
         };
       });
       this.dataSource = new MatTableDataSource<any>(this.lists);
+      this.dataSource.paginator = this.paginator;
       console.log('DATA SOURCE', this.dataSource);
+    });
+  }
+  applyFilter(filterValue: string): void {
+    filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+  onEditUser(id: string): void {
+    this.editing = true;
+    this.editingId = id;
+  }
+  onDeleteUser(id: string): void {
+    this.userService.deleteUser(id);
+  }
+  onCancel() {
+    this.editing = false;
+    this.editingId = null;
+  }
+  onSaveUser(user) {
+    this.userService.updateUser(user).then(() => {
+      this.editing = false;
+      this.editingId = null;
+      alert('Saved successfully');
     });
   }
 }

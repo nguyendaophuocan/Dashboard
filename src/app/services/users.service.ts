@@ -10,4 +10,11 @@ export class UsersService {
   getUsers() {
     return this.db.collection('users').snapshotChanges();
   }
+  updateUser(user: any) {
+    console.log('user', user);
+    return this.db.collection('users').doc(user.id).update(user);
+  }
+  deleteUser(id: string) {
+    return this.db.collection('users').doc(id).delete();
+  }
 }
